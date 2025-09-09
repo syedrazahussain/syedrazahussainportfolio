@@ -1,15 +1,9 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { motion, AnimatePresence, useInView, useAnimation, useMotionValue } from "framer-motion";
 import ForceGraph2D from 'react-force-graph-2d';
-
 import { ReactTyped } from "react-typed";
-
-
-
 import Lottie from "lottie-react";
-
 import coderAnim from "./coder.json";
-
 import * as d3 from "d3-force";
 import HTMLFlipBook from "react-pageflip";
 import {
@@ -19,7 +13,6 @@ import {
   FaGithub
 } from "react-icons/fa";
 import { FaPhone, FaEnvelope, FaLinkedin } from "react-icons/fa";
-
 import { SiC, SiNextdotjs, SiTailwindcss, SiExpress, SiMongodb, SiPostgresql, SiMysql, SiSupabase, SiVercel, SiNetlify, SiRender, SiRailway, SiPostman, SiAnaconda } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 import { SiXampp } from "react-icons/si";
@@ -630,7 +623,7 @@ function Nav() {
   return (
     <nav className="nav">
       <div className="navLeft">
-        <span className="brand">SYED RAZA HUSSAIN </span>
+        <span className="brand" ><a href='/'> SYED RAZA HUSSAIN </a></span>
       </div>
       <button className="menuBtn" onClick={() => setOpen(!open)} aria-label="Menu">
         ☰
@@ -665,7 +658,7 @@ function ProjectsScene({ projects = [] }) {
   const rotate = useMotionValue(0);
   const lottieControls = useAnimation();
 
-  const visibleProjects = projects.slice(0, 4);
+  const visibleProjects = projects.slice(0, 5);
 
   // Get Lottie position for bubbles
   // Get Lottie position for bubbles (from head)
@@ -700,6 +693,38 @@ function ProjectsScene({ projects = [] }) {
     return () => observer.disconnect();
   }, [triggered]);
 
+  // add this inside ProjectsScene, below your other useEffects
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const handleScroll = () => {
+      if (!triggered) return; // only after IntersectionObserver fired
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // check if container is in view while scrolling
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        // section is visible
+        if (!triggered) {
+          setTriggered(true);
+        }
+      } else {
+        // section out of view, reset so it can fire again on next scroll
+        if (triggered) {
+          setTriggered(false);
+          setLandedProjects([]); // reset cards
+          setActiveIndex(-1);    // reset bubble
+        }
+      }
+
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [triggered]);
+
+
   // Animate Lottie, bubbles, and cards when triggered
   // Inside ProjectsScene
   useEffect(() => {
@@ -722,11 +747,17 @@ function ProjectsScene({ projects = [] }) {
         });
 
         setActiveIndex(i);
+        
+         gridRefs.current[i]?.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
 
         // Wait bubble to reach card before rendering it
         await new Promise((resolve) => {
           const timer = setTimeout(() => {
             setLandedProjects((prev) => [...prev, visibleProjects[i]]);
+           
             resolve();
           }, 1200); // match BubbleFromScreen animation duration
         });
@@ -1573,7 +1604,7 @@ export default function Portfolio() {
       desc: "Automated internship applications using headless browser scripting, reducing manual effort by 95% and boosting reach by 4x.",
       tech: ["Node.js", "Puppeteer"],
       image: '/internshala.png',
-      link: "http://localhost:3000/internshala"
+      link: "/internshala"
     },
     {
       title: "Vehicall",
@@ -1595,7 +1626,14 @@ export default function Portfolio() {
       tech: ["Next.js", "Express.js", "PostgreSQL", "Node.js"],
       image: '/toolshaven.png',
       link: "https://tools-haven.vercel.app/"
-    }
+    },
+    {
+      title: "Celebratemate",
+      desc: "An event reminder system that sends automated SMS and email notifications for birthdays, anniversaries, and other important events to avoid missing special moments.",
+      tech: ["React JS", "Express", "NodeJS", "Postgres"],
+      image: '/celebratemate.png',
+      link: "https://celebratemate-client.onrender.com/"
+    },
   ];
 
 
@@ -1755,28 +1793,28 @@ export default function Portfolio() {
 
             {/* Contact Row */}
             <div className="contactGrid mt-6 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-[1000px] mx-auto">
-  {[
-    { icon: <FaPhone />, label: "Phone", value: contact.phone, href: `tel:${contact.phone}` },
-    { icon: <FaEnvelope />, label: "Email", value: contact.email, href: `mailto:${contact.email}` },
-    { icon: <FaLinkedin />, label: "LinkedIn", value: "/syedrazahussain1512", href: contact.linkedin },
-    { icon: <FaGithub />, label: "GitHub", value: "/syedrazahussain", href: contact.github },
-  ].map((c, i) => (
-    <a
-      key={i}
-      href={c.href}
-      target={c.href.startsWith("http") ? "_blank" : "_self"}
-      rel={c.href.startsWith("http") ? "noreferrer" : ""}
-      className="contactCard flex items-start p-6 bg-[var(--panel)] rounded-xl shadow-lg hover:scale-105 transition-transform w-full min-w-[280px] break-words"
-      style={{ minHeight: "120px" }}
-    >
-      <span className="icon text-[var(--brand)] text-3xl flex-shrink-0">{c.icon}</span>
-      <div className="ml-5 flex flex-col min-w-0 break-words">
-        <p className="label text-base text-[var(--text)] font-medium">{c.label}</p>
-        <p className="text-[var(--text)] text-lg break-words">{c.value}</p>
-      </div>
-    </a>
-  ))}
-</div>
+              {[
+                { icon: <FaPhone />, label: "Phone", value: contact.phone, href: `tel:${contact.phone}` },
+                { icon: <FaEnvelope />, label: "Email", value: contact.email, href: `mailto:${contact.email}` },
+                { icon: <FaLinkedin />, label: "LinkedIn", value: "/syedrazahussain1512", href: contact.linkedin },
+                { icon: <FaGithub />, label: "GitHub", value: "/syedrazahussain", href: contact.github },
+              ].map((c, i) => (
+                <a
+                  key={i}
+                  href={c.href}
+                  target={c.href.startsWith("http") ? "_blank" : "_self"}
+                  rel={c.href.startsWith("http") ? "noreferrer" : ""}
+                  className="contactCard flex items-start p-6 bg-[var(--panel)] rounded-xl shadow-lg hover:scale-105 transition-transform w-full min-w-[280px] break-words"
+                  style={{ minHeight: "120px" }}
+                >
+                  <span className="icon text-[var(--brand)] text-3xl flex-shrink-0">{c.icon}</span>
+                  <div className="ml-5 flex flex-col min-w-0 break-words">
+                    <p className="label text-base text-[var(--text)] font-medium">{c.label}</p>
+                    <p className="text-[var(--text)] text-lg break-words">{c.value}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
 
 
             {/* CTA Buttons */}
@@ -2055,11 +2093,26 @@ export default function Portfolio() {
         .navLinks a{color:var(--text); text-decoration:none; font-size:0.95rem; opacity:0.9}
         .navLinks a:hover{color:white}
         .menuBtn{display:none; font-size:22px; color:var(--text); background:none; border:none}
-        @media (max-width:860px){
-          .menuBtn{display:block}
-          .navLinks{position:absolute; right:12px; top:58px; flex-direction:column; background:rgba(15,23,42,0.95); padding:12px; border:1px solid rgba(255,255,255,0.06); border-radius:12px; display:none}
-          .navLinks.open{display:flex}
-        }
+     .nav { position:sticky; z-index:2000; }
+
+@media (max-width:860px){
+  .navLinks {
+    position:absolute;
+    top:100%;     /* directly below nav */
+    right:12px;
+    flex-direction:column;
+    background:#0f172a;
+    padding:12px;
+    border-radius:12px;
+    display:none;
+    z-index:2500; /* higher than header content */
+  }
+     .menuBtn { display:block; }
+
+  .navLinks.open {display:flex;}
+}
+
+
 
   
         .ctaRow{display:flex; gap:14px; justify-content:center; margin-top:12px}
