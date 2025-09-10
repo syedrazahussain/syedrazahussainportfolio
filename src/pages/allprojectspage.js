@@ -567,6 +567,7 @@ const projects = [
     desc: "A video streaming web app clone of Netflix featuring dynamic movie lists, responsive UI, and simulated playback experience.",
     tech: ["HTML", "CSS", "JavaScript"],
     image: '/netflix.png',
+    link:"https://github.com/syedrazahussain/netflix_clone"
     
   },
   {
