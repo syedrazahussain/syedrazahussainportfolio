@@ -651,7 +651,9 @@ function ProjectsScene({ projects = [] }) {
   const gridRefs = useRef([]);
   const [landedProjects, setLandedProjects] = useState([]);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [triggered, setTriggered] = useState(false); // trigger animation
+  const [triggered, setTriggered] = useState(false);
+const [playedOnce, setPlayedOnce] = useState(false); // <-- new
+
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -676,22 +678,24 @@ function ProjectsScene({ projects = [] }) {
   };
 
   // Trigger animation when section is visible
-  useEffect(() => {
-    if (!containerRef.current) return;
+useEffect(() => {
+  if (!containerRef.current) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !triggered) {
-          setTriggered(true); // mark animation triggered
-        }
-      },
-      { threshold: 0.5 } // 50% of section visible
-    );
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting && !playedOnce) {
+        setTriggered(true);      // trigger the animation
+        setPlayedOnce(true);     // lock it so it won't replay
+      }
+    },
+    { threshold: 0.5 }
+  );
 
-    observer.observe(containerRef.current);
+  observer.observe(containerRef.current);
 
-    return () => observer.disconnect();
-  }, [triggered]);
+  return () => observer.disconnect();
+}, [playedOnce]);
+
 
   // add this inside ProjectsScene, below your other useEffects
   useEffect(() => {
@@ -711,11 +715,7 @@ function ProjectsScene({ projects = [] }) {
         }
       } else {
         // section out of view, reset so it can fire again on next scroll
-        if (triggered) {
-          setTriggered(false);
-          setLandedProjects([]); // reset cards
-          setActiveIndex(-1);    // reset bubble
-        }
+       
       }
 
     };
