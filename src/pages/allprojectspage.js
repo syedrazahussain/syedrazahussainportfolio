@@ -582,6 +582,7 @@ const projects = [
     desc: "A React-based application for booking movie tickets online, with showtime selection, seat reservation, and user-friendly design.",
     tech: ["React JS"],
     image: '/moviebooking.png',
+    link:'https://github.com/syedrazahussain/Movie-Ticket-Booking-Web-app'
     
   }
 ];
