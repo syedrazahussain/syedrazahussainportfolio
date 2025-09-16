@@ -1712,6 +1712,7 @@ export default function Portfolio() {
     { title: "SQL", subtitle: "LetsUpgrade", desc: "Relational queries & optimization basics.", image: '/SQL_bootcamp_certificate-1.png' },
     { title: "Introduction To Generative AI", subtitle: "SimpliLearn(Google Cloud)", desc: "Overview of ai, algorithms, concepts", image: '/google_cloud-1.png' },
     { title: "Postman API Fundamentals", subtitle: "Postman", desc: "API design, testing, and collections.", image: '/postman_api_certificate-1.png' },
+    { title: "Full Stack Development", subtitle: "Udemy", desc: "Learn concept of web,web3,advanced topics.", image: '/udemy_full_stack_certificate.jpg' },
     { title: "Databases for Developers", subtitle: "Oracle Dev Gym", desc: "PL/SQL and design patterns.", image: '/Oracle_database_for_developers-1.png' },
     { title: "Mern stack fundamental", subtitle: "Great Learning", desc: "Covered basic fundamentals.", image: '/Great_learning_mern_certificate_1.png' },
     { title: "Node JS", subtitle: "LetsUpgrade", desc: "Creating server,http,making REST Api's", image: '/Nodejs_certificate-1.png' },
