@@ -1884,7 +1884,11 @@ export default function Portfolio() {
               </div>
               <ul className="bullets">
                 {ex.bullets.map((b, bi) => (
-                  <li key={bi}>{b}</li>
+                 <li key={bi} className="bulletItem">
+                 <span className="starBullet">✦</span>
+                 <span className="bulletText">{b}</span>
+               </li>
+               
                 ))}
               </ul>
             </motion.div>
@@ -2152,6 +2156,41 @@ export default function Portfolio() {
   font-weight: 600;
   line-height: 1.3;
 }
+.bullets {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.starBullet {
+  color: white;
+  font-size: 1.1rem;
+  margin-top: 4px;
+  flex-shrink: 0;
+  text-shadow:
+    0 0 4px rgba(255,255,255,0.9),
+    0 0 8px rgba(255,255,255,0.7),
+    0 0 14px rgba(255,255,255,0.6);
+  animation: starTwinkle 2s ease-in-out infinite;
+}
+
+.bulletText {
+  color: var(--text);
+  line-height: 1.6;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+
 
 .muted {
   color: #94a3b8;
