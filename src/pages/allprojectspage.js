@@ -519,7 +519,7 @@ const projects = [
     desc: "Automated internship applications using headless browser scripting, reducing manual effort by 95% and boosting reach by 4x.",
     tech: ["Node.js", "Puppeteer"],
     image: '/internshala.png',
-    link: "http://localhost:3000/internshala"
+    link: "https://syedrazahussainportfolio.pages.dev/internshala"
   },
   {
     title: "Vehicall",
