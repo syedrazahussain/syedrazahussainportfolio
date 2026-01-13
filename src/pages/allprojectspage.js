@@ -526,7 +526,7 @@ const projects = [
     desc: "Platform to contact vehicle owners in parking zones via secure DB access and phone integration, cutting retrieval time by 60%.",
     tech: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
     image: '/vehicall.png',
-    link: "https://vehicall.great-site.net/"
+    link: "https://vehicall1.yzz.me/"
   },
   {
     title: "CivicLink",
