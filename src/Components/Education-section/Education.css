@@ -1,0 +1,112 @@
+ /* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 26px;
+}
+
+.timeline:before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(transparent, var(--brand), transparent);
+}
+
+/* Each item */
+.tItem {
+  position: relative;
+  margin: 0 0 22px;
+}
+
+/* Dot */
+.tDot {
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.25);
+}
+
+/* Content */
+.tContent {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 18px rgba(2, 6, 23, 0.35);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ✅ Responsive Adjustments */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 18px; /* reduce left padding */
+  }
+
+  .timeline:before {
+    left: 6px; /* move vertical line closer */
+  }
+
+  .tDot {
+    left: 0;
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+  }
+
+  .tContent {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .tContent h3 {
+    font-size: 1rem;
+  }
+
+  .tContent p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .timeline {
+    padding-left: 14px;
+  }
+
+  .timeline:before {
+    left: 4px;
+  }
+
+  .tDot {
+    width: 8px;
+    height: 8px;
+    top: 4px;
+  }
+
+  .tContent {
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+  }
+
+  .tContent h3 {
+    font-size: 0.9rem;
+  }
+
+  .tContent p {
+    font-size: 0.75rem;
+  }
+}
+
+.scrollItem{position:relative; transform-origin:left center; transform-style:preserve-3d; background:var(--panel); border-radius:var(--radius); padding:2rem 1rem 2rem 3rem; overflow:hidden; perspective:1500px; box-shadow:var(--shadow); color:var(--text); margin-bottom:30px}
+.scrollRod{position:absolute; left:-20px; top:0; bottom:0; width:15px; background:var(--brand2); border-radius:8px; transform-origin:center center; box-shadow:0 0 10px rgba(0,0,0,0.5)}
+.scrollShadow{position:absolute; left:0; top:0; width:100%; height:100%; background:linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.0) 50%, rgba(0,0,0,0.5) 100%); pointer-events:none; transform-origin:left center}
+.scrollHighlight{position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(120deg, rgba(255,255,255,0.15), rgba(255,255,255,0)); transform-origin:left center; pointer-events:none}
+.scrollContent{position:relative; z-index:2; color:var(--text)}
+.muted{color:var(--muted)} 

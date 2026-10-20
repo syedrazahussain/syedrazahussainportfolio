@@ -2515,3 +2515,109 @@ export default function Portfolio() {
     </div>
   );
 }
+
+
+
+
+
+
+      <style>{`
+        :root{
+          --bg: #0b1020;
+          --panel: #0f172a;
+          --glass: rgba(255,255,255,0.06);
+          --text: #e5e7eb;
+          --muted: #94a3b8;
+          --brand: #60a5fa; /* blue */
+          --brand2: #a78bfa; /* violet */
+          --accent: #34d399; /* emerald */
+          --shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+          --radius: 20px;
+        }
+    @keyframes dash{0%{stroke-dasharray:10,200; stroke-dashoffset:0} 50%{stroke-dasharray:200,10; stroke-dashoffset:-200} 100%{stroke-dasharray:10,200; stroke-dashoffset:0}}
+@keyframes float{0%{transform:translateY(0px) rotate(0deg) scale(1)} 50%{transform:translateY(-10px) rotate(1deg) scale(1.02)} 100%{transform:translateY(0px) rotate(0deg) scale(1)}}
+.animate-float{animation:float 5s ease-in-out infinite}
+.animated-gradient-text{background:linear-gradient(270deg,var(--brand),var(--brand2),var(--accent),var(--brand)); background-size:600% 600%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:gradient-flow 8s ease infinite}
+.animated-gradient-glow{background:linear-gradient(270deg,var(--brand),var(--brand2),var(--accent),var(--brand)); background-size:600% 600%; animation:gradient-flow 8s ease infinite, pulse 4s ease-in-out infinite; border-radius:var(--radius)}
+.particles{position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; pointer-events:none; z-index:1}
+.particles li{position:absolute; display:block; list-style:none; width:8px; height:8px; background:var(--accent); border-radius:50%; opacity:0.6; animation:floatUp linear infinite}
+.particles li:nth-child(1){left:10%; animation-duration:20s; animation-delay:0s}
+.particles li:nth-child(2){left:25%; animation-duration:18s; animation-delay:2s}
+.particles li:nth-child(3){left:40%; animation-duration:22s; animation-delay:4s}
+.particles li:nth-child(4){left:55%; animation-duration:15s; animation-delay:6s}
+.particles li:nth-child(5){left:70%; animation-duration:25s; animation-delay:3s}
+.particles li:nth-child(6){left:85%; animation-duration:19s; animation-delay:1s}
+.particles li:nth-child(7){left:15%; animation-duration:24s; animation-delay:5s}
+.particles li:nth-child(8){left:35%; animation-duration:20s; animation-delay:8s}
+.particles li:nth-child(9){left:65%; animation-duration:18s; animation-delay:4s}
+.particles li:nth-child(10){left:80%; animation-duration:21s; animation-delay:7s}
+.particles li:nth-child(11){left:50%; animation-duration:23s; animation-delay:9s}
+.particles li:nth-child(12){left:90%; animation-duration:17s; animation-delay:11s}
+@keyframes floatUp{0%{transform:translateY(100vh) scale(0.5); opacity:0.4} 50%{opacity:1} 100%{transform:translateY(-10vh) scale(1.2); opacity:0}}
+@keyframes gradient-flow{0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}}
+@keyframes pulse{0%,100%{opacity:0.7; transform:scale(1)} 50%{opacity:1; transform:scale(1.05)}}
+.particles li{position:absolute; display:block; list-style:none; width:8px; height:8px; border-radius:50%; opacity:0.6; animation:floatUp linear infinite, colorShift 6s ease-in-out infinite}
+.particles li:nth-child(1){left:10%; animation-duration:20s; animation-delay:0s}
+.particles li:nth-child(2){left:25%; animation-duration:18s; animation-delay:2s}
+.particles li:nth-child(3){left:40%; animation-duration:22s; animation-delay:4s}
+.particles li:nth-child(4){left:55%; animation-duration:15s; animation-delay:6s}
+.particles li:nth-child(5){left:70%; animation-duration:25s; animation-delay:3s}
+.particles li:nth-child(6){left:85%; animation-duration:19s; animation-delay:1s}
+.particles li:nth-child(7){left:15%; animation-duration:24s; animation-delay:5s}
+.particles li:nth-child(8){left:35%; animation-duration:20s; animation-delay:8s}
+.particles li:nth-child(9){left:65%; animation-duration:18s; animation-delay:4s}
+.particles li:nth-child(10){left:80%; animation-duration:21s; animation-delay:7s}
+.particles li:nth-child(11){left:50%; animation-duration:23s; animation-delay:9s}
+.particles li:nth-child(12){left:90%; animation-duration:17s; animation-delay:11s}
+@keyframes colorShift{0%{background:var(--brand)} 33%{background:var(--brand2)} 66%{background:var(--accent)} 100%{background:var(--brand)}}
+
+
+
+
+        *{box-sizing:border-box}
+        html,body,#root{height:100%}
+        body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; color:var(--text); background:var(--bg);}
+
+        .bgCanvas{position:fixed; inset:0; z-index:-2}
+
+        .wrap{position:relative; min-height:100vh;}
+
+
+
+
+        .ctaRow{display:flex; gap:14px; justify-content:center; margin-top:12px}
+        .primaryBtn,.ghostBtn{padding:12px 18px; border-radius:12px; text-decoration:none; font-weight:600}
+        .primaryBtn{background:linear-gradient(90deg,var(--brand),var(--brand2)); color:#0b1020; box-shadow:0 10px 20px rgba(96,165,250,0.3)}
+        .ghostBtn{border:1px solid rgba(255,255,255,0.18); color:var(--text)}
+
+        // main{max-width:1100px; margin:0 auto}
+         main{max-width:100%; padding:100px;}
+        .section{margin:60px 0}
+        .sectionTitle{font-size: clamp(22px, 3vw, 30px); margin: 90px 0 60px; font-weight:800; letter-spacing:0.3px}
+        @media (max-width:860px){
+          main{padding:0px;}
+        }
+
+        
+
+//  hero section top section grid
+
+        /* Grid responsiveness */
+.grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) { /* sm: */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) { /* lg: */
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+      `}</style>

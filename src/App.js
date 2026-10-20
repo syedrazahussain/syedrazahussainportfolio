@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Homescreen from './screens/Homescreen';
@@ -14,9 +13,6 @@ function App() {
           <Route path="/" element={<Homescreen />} />
           <Route path="/internshala" element={<Internshala/>} /> 
           <Route path="/allprojectspage" element={<Allprojectspage/>} />  
-          
-
-
         </Routes>
       </BrowserRouter>
     </div>

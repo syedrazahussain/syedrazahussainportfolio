@@ -515,46 +515,55 @@ export default allprojectspage
 
 const projects = [
   {
-    title: "Internshala Automation Tool",
-    desc: "Automated internship applications using headless browser scripting, reducing manual effort by 95% and boosting reach by 4x.",
-    tech: ["Node.js", "Puppeteer"],
-    image: '/internshala.png',
-    link: "https://syedrazahussainportfolio.pages.dev/internshala"
-  },
-  {
-    title: "Vehicall",
-    desc: "Platform to contact vehicle owners in parking zones via secure DB access and phone integration, cutting retrieval time by 60%.",
-    tech: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
-    image: '/vehicall.png',
-    link: "https://vehicall1.yzz.me/"
-  },
-  {
-    title: "CivicLink",
-    desc: "Multi-role dashboard to report civic issues (water, garbage, roads), improving complaint resolution efficiency by 40%.",
-    tech: ["React.js", "Node.js", "Express.js", "MongoDB"],
-    image: '/civiclink.png',
-    link: "https://civiclink1.netlify.app/"
-  },
-  {
-    title: "Tools Haven – Tool Renting Platform",
-    desc: "Role-based tool-sharing platform with real-time updates & notifications; reduced missed returns by 50% and improved engagement by 70%.",
-    tech: ["Next.js", "Express.js", "PostgreSQL", "Node.js"],
-    image: '/toolshaven.png',
-    link: "https://tools-haven.vercel.app/"
-  },
+      title: "RisbenAI - AI-Powered Career Prepartaion Platform",
+      desc: "Built an AI-platform that helps job seekers improve resume quality, identify skill gaps, gain actionable career insights, and plan personalized career growth.",
+      tech: ["RAG","LangChain","LangGraph","MERN", "Redis","Firebase","Razorpay","Docker","Github Actions"],
+      image: '/risbenai.png',
+      link: "https://risbenai.vercel.app"
+    },
+    {
+      title: "Tools Haven – Tool Renting Platform",
+      desc: "Role-based tool-sharing platform with real-time updates & notifications; reduced missed returns by 50% and improved engagement by 70%.",
+      tech: ["Next.js", "Express.js", "PostgreSQL", "Node.js"],
+      image: '/toolshaven.png',
+      link: "https://tools-haven.vercel.app/"
+    },
+    {
+      title: "Vehicall",
+      desc: "Platform to contact vehicle owners in parking zones via secure DB access and phone integration, cutting retrieval time by 60%.",
+      tech: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+      image: '/vehicall.png',
+      link: "https://vehicall.infinityfree.me"
+    },
+    {
+      title: "Celebratemate",
+      desc: "An event reminder system that sends automated SMS and email notifications for birthdays, anniversaries, and other important events to avoid missing special moments.",
+      tech: ["React JS", "Express", "NodeJS", "Postgres"],
+      image: '/celebratemate.png',
+      link: "https://celebratemate-client.onrender.com/"
+    },
+    {
+      title: "Internshala Automation Tool",
+      desc: "Automated internship applications using headless browser scripting, reducing manual effort by 95% and boosting reach by 4x.",
+      tech: ["Node.js", "Puppeteer"],
+      image: '/internshala.png',
+      link: "/internshala"
+    },
+    
+    {
+      title: "CivicLink",
+      desc: "Multi-role dashboard to report civic issues (water, garbage, roads), improving complaint resolution efficiency by 40%.",
+      tech: ["React.js", "Node.js", "Express.js", "MongoDB"],
+      image: '/civiclink.png',
+      link: "https://civiclink1.netlify.app/"
+    },
   {
     title: "HR Management System",
     desc: "A web-based HR platform for managing employee data, leaves, and roles efficiently, improving organizational workflows.",
     tech: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
     image: '/hr.png'
   },
-  {
-    title: "Celebratemate",
-    desc: "An event reminder system that sends automated SMS and email notifications for birthdays, anniversaries, and other important events to avoid missing special moments.",
-    tech: ["React JS","Express","NodeJS","Postgres"],
-    image:'/celebratemate.png',
-    link: "https://celebratemate-client.onrender.com/"
-  },
+  
   {
     title: "Smart Time Table for University",
     desc: "An intelligent timetable generator that helps universities optimize class schedules, avoid clashes, and save administrative time.",

@@ -1,0 +1,124 @@
+/* Experience */
+.expCard {
+  background: linear-gradient(180deg, rgba(96,165,250,0.06), rgba(2,6,23,0.2));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 18px 18px 6px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px; /* spacing between cards */
+}
+
+.expHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: baseline;
+}
+
+.expHeader h3 {
+  font-size: 1.125rem; /* 18px default */
+  font-weight: 600;
+  line-height: 1.3;
+}
+.bullets {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.starBullet {
+  color: white;
+  font-size: 1.1rem;
+  margin-top: 4px;
+  flex-shrink: 0;
+  text-shadow:
+    0 0 4px rgba(255,255,255,0.9),
+    0 0 8px rgba(255,255,255,0.7),
+    0 0 14px rgba(255,255,255,0.6);
+  animation: starTwinkle 2s ease-in-out infinite;
+}
+
+.bulletText {
+  color: var(--text);
+  line-height: 1.6;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+
+
+.muted {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.period {
+  margin-left: auto;
+  color: #c7d2fe;
+  font-size: 0.9rem;
+}
+
+.bullets {
+  margin: 10px 0 8px 18px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ✅ Mobile tweaks */
+@media (max-width: 768px) {
+  .expCard {
+    padding: 14px 14px 4px;
+  }
+
+  .expHeader {
+    flex-direction: column; /* stack role, company, and period */
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .expHeader h3 {
+    font-size: 1rem; /* smaller title */
+  }
+
+  .muted,
+  .period {
+    font-size: 0.85rem;
+  }
+
+  .period {
+    margin-left: 0; /* no auto push, just below company */
+    color: #a5b4fc;
+  }
+
+  .bullets {
+    margin-left: 14px; /* reduce indent */
+    font-size: 0.85rem;
+  }
+}
+
+/* ✅ Extra-small phones (like 360px wide) */
+@media (max-width: 400px) {
+  .expCard {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .expHeader h3 {
+    font-size: 0.95rem;
+  }
+
+  .muted,
+  .period,
+  .bullets {
+    font-size: 0.8rem;
+  }
+}
