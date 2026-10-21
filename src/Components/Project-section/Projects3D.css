@@ -1,0 +1,377 @@
+
+/* ===============================
+   3D PROJECT CARD
+================================ */
+
+.project-3d-scene {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  perspective: 1200px;
+}
+
+.project-3d-card {
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 570px;
+  padding: 12px;
+
+  overflow: hidden;
+  border: 1px solid rgba(125, 211, 252, 0.22);
+  border-radius: 22px;
+
+  background: linear-gradient(
+    145deg,
+    var(--panel, #111827),
+    rgba(15, 23, 42, 0.96)
+  );
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* Rotating gradient border */
+
+.project-card-border {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1.5px;
+  border-radius: inherit;
+
+  background: conic-gradient(
+    from var(--border-angle, 0deg),
+    transparent 0deg,
+    transparent 180deg,
+    #38bdf8 230deg,
+    #a78bfa 280deg,
+    #22d3ee 320deg,
+    transparent 360deg
+  );
+
+  opacity: 0.45;
+  pointer-events: none;
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.project-3d-card:hover .project-card-border {
+  opacity: 1;
+  animation: projectBorderSpin 3s linear infinite;
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes projectBorderSpin {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+/* Mouse-following shine */
+
+.project-card-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+
+  background: radial-gradient(
+    circle at var(--pointer-x) var(--pointer-y),
+    rgba(125, 211, 252, 0.18),
+    rgba(167, 139, 250, 0.07) 25%,
+    transparent 55%
+  );
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.project-3d-card:hover .project-card-shine {
+  opacity: 1;
+}
+
+/* ===============================
+   PROJECT IMAGE
+================================ */
+
+.project-3d-image {
+  position: relative;
+  flex-shrink: 0;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #0f172a;
+
+  transform-style: preserve-3d;
+}
+
+.project-3d-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  transition:
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.5s ease;
+}
+
+.project-3d-card:hover .project-3d-image img {
+  transform: scale(1.09);
+  filter: saturate(1.15);
+}
+
+/* Image gradient overlay */
+
+.project-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 6, 23, 0.04),
+    transparent 35%,
+    rgba(2, 6, 23, 0.62)
+  );
+  pointer-events: none;
+}
+
+/* Image label */
+
+.project-image-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 20px;
+
+  background: rgba(15, 23, 42, 0.65);
+  color: #e0f2fe;
+
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+
+  backdrop-filter: blur(10px);
+}
+
+/* ===============================
+   CONTENT
+================================ */
+
+.project-3d-content {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding: 21px 8px 8px;
+
+  transform-style: preserve-3d;
+}
+
+.project-3d-content h3 {
+  margin: 0 0 12px;
+
+  color: var(--text, #f8fafc);
+  font-size: 1.12rem;
+  font-weight: 800;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+
+  transition: color 0.3s ease;
+}
+
+.project-3d-card:hover .project-3d-content h3 {
+  color: #7dd3fc;
+}
+
+.project-3d-description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+
+  margin: 0 0 20px;
+
+  color: var(--muted, #a1a1aa);
+  font-size: 0.84rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+/* ===============================
+   TECHNOLOGY TAGS
+================================ */
+
+.project-3d-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding: 0 0 20px;
+}
+
+.project-3d-tech span {
+  max-width: 100%;
+  padding: 6px 10px;
+
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  border-radius: 8px;
+
+  background: rgba(59, 130, 246, 0.09);
+  color: #bae6fd;
+
+  font-size: 0.7rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.project-3d-card:hover .project-3d-tech span {
+  border-color: rgba(125, 211, 252, 0.35);
+  background: rgba(59, 130, 246, 0.14);
+}
+
+/* ===============================
+   EXPLORE BUTTON
+================================ */
+
+.project-3d-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 100%;
+  margin-top: auto;
+  padding: 12px 16px;
+
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  border-radius: 11px;
+
+  background: linear-gradient(
+    100deg,
+    #2563eb,
+    #0891b2,
+    #0d9488
+  );
+
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 750;
+  text-align: center;
+  text-decoration: none;
+
+  box-shadow: 0 6px 20px rgba(8, 145, 178, 0.18);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    filter 0.3s ease;
+}
+
+.project-3d-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.12);
+  box-shadow: 0 10px 28px rgba(8, 145, 178, 0.32);
+}
+
+.project-3d-button:focus-visible {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 4px;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 640px) {
+  .project-3d-card {
+    min-height: 0;
+    padding: 10px;
+    border-radius: 18px;
+  }
+
+  .project-3d-image {
+    height: 210px;
+    border-radius: 12px;
+  }
+
+  .project-3d-content {
+    padding: 17px 6px 6px;
+  }
+
+  .project-3d-content h3 {
+    font-size: 1.05rem;
+  }
+
+  .project-3d-description {
+    font-size: 0.82rem;
+  }
+
+  .project-3d-tech {
+    margin-top: 8px;
+  }
+}
+
+/* Touch screens don't need mouse tilt */
+
+@media (hover: none) {
+  .project-3d-card {
+    transform: none !important;
+  }
+
+  .project-card-shine {
+    display: none;
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .project-3d-card,
+  .project-3d-image img,
+  .project-3d-button,
+  .project-3d-tech span {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .project-3d-card:hover .project-card-border {
+    animation: none;
+  }
+}

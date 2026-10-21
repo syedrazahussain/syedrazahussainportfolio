@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Header.css";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function Header() {
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><Link to="/allprojectspage">All Projects</Link></li>
         <li><a href="#education">Education</a></li>
         <li><a href="#achievements">Achievements</a></li>
         <li><a href="#contact">Contact</a></li>

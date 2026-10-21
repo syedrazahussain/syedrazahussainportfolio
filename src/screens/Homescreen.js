@@ -310,6 +310,191 @@ function SectionTitle({ title, subtitle }) {
 }
 
 
+
+/* ==========================
+   Custom Theme Scrollbar
+   ========================== */
+export function CustomScrollbar() {
+  const trackRef = useRef(null);
+  const thumbRef = useRef(null);
+  const dragRef = useRef({
+    active: false,
+    startY: 0,
+    startScroll: 0,
+  });
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const thumb = thumbRef.current;
+
+    if (!track || !thumb) return;
+
+    let frameId;
+
+    const updateScrollbar = () => {
+      cancelAnimationFrame(frameId);
+
+      frameId = requestAnimationFrame(() => {
+        const viewportHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const maxScroll = Math.max(
+          0,
+          documentHeight - viewportHeight
+        );
+
+        const trackHeight = track.clientHeight;
+
+        if (maxScroll <= 0 || trackHeight <= 0) {
+          track.style.display = "none";
+          return;
+        }
+
+        track.style.display = "block";
+
+        const thumbHeight = Math.min(
+          trackHeight,
+          Math.max(38, (viewportHeight / documentHeight) * trackHeight)
+        );
+
+        const maxThumbTop = trackHeight - thumbHeight;
+        const thumbTop =
+          maxScroll > 0
+            ? (window.scrollY / maxScroll) * maxThumbTop
+            : 0;
+
+        thumb.style.height = `${thumbHeight}px`;
+        thumb.style.transform = `translateY(${thumbTop}px)`;
+      });
+    };
+
+    const handlePointerDown = (event) => {
+      dragRef.current = {
+        active: true,
+        startY: event.clientY,
+        startScroll: window.scrollY,
+      };
+
+      thumb.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    };
+
+    const handlePointerMove = (event) => {
+      if (!dragRef.current.active) return;
+
+      const viewportHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const maxScroll = Math.max(0, documentHeight - viewportHeight);
+
+      const trackHeight = track.clientHeight;
+      const thumbHeight = thumb.offsetHeight;
+      const maxThumbTop = trackHeight - thumbHeight;
+
+      if (maxThumbTop <= 0) return;
+
+      const deltaY = event.clientY - dragRef.current.startY;
+      const scrollDelta = (deltaY / maxThumbTop) * maxScroll;
+
+      window.scrollTo({
+        top: Math.max(
+          0,
+          Math.min(
+            maxScroll,
+            dragRef.current.startScroll + scrollDelta
+          )
+        ),
+        behavior: "auto",
+      });
+    };
+
+    const handlePointerUp = () => {
+      dragRef.current.active = false;
+    };
+
+    const handleTrackClick = (event) => {
+      if (event.target !== track) return;
+
+      const rect = track.getBoundingClientRect();
+      const clickPosition = event.clientY - rect.top;
+      const viewportHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const maxScroll = Math.max(0, documentHeight - viewportHeight);
+
+      const thumbHeight = thumb.offsetHeight;
+      const maxThumbTop = track.clientHeight - thumbHeight;
+
+      if (maxThumbTop <= 0) return;
+
+      const targetScroll =
+        ((clickPosition - thumbHeight / 2) / maxThumbTop) * maxScroll;
+
+      window.scrollTo({
+        top: Math.max(0, Math.min(maxScroll, targetScroll)),
+        behavior: window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches
+          ? "auto"
+          : "smooth",
+      });
+    };
+
+    thumb.addEventListener("pointerdown", handlePointerDown);
+    thumb.addEventListener("pointermove", handlePointerMove);
+    thumb.addEventListener("pointerup", handlePointerUp);
+    thumb.addEventListener("pointercancel", handlePointerUp);
+    thumb.addEventListener("lostpointercapture", handlePointerUp);
+    track.addEventListener("click", handleTrackClick);
+
+    window.addEventListener("scroll", updateScrollbar, {
+      passive: true,
+    });
+    window.addEventListener("resize", updateScrollbar, {
+      passive: true,
+    });
+
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(updateScrollbar)
+        : null;
+
+    resizeObserver?.observe(document.documentElement);
+
+    updateScrollbar();
+
+    return () => {
+      cancelAnimationFrame(frameId);
+
+      thumb.removeEventListener("pointerdown", handlePointerDown);
+      thumb.removeEventListener("pointermove", handlePointerMove);
+      thumb.removeEventListener("pointerup", handlePointerUp);
+      thumb.removeEventListener("pointercancel", handlePointerUp);
+      thumb.removeEventListener(
+        "lostpointercapture",
+        handlePointerUp
+      );
+      track.removeEventListener("click", handleTrackClick);
+
+      window.removeEventListener("scroll", updateScrollbar);
+      window.removeEventListener("resize", updateScrollbar);
+
+      resizeObserver?.disconnect();
+    };
+  }, []);
+
+  return (
+    <div
+      ref={trackRef}
+      className="theme-scrollbar"
+      aria-hidden="true"
+    >
+      <div
+        ref={thumbRef}
+        className="theme-scrollbar-thumb"
+      />
+    </div>
+  );
+}
+
+
 export default function Portfolio() {
   // ---------- Data (from your resume) ----------
   const contact = {
@@ -330,6 +515,7 @@ and RAG. Eager to apply problem-solving skills and build reliable, scalable soft
   return (
     <div className="wrap">
       <ParticleBackground />
+      <CustomScrollbar />
 
         <Header />
 
@@ -490,6 +676,107 @@ and RAG. Eager to apply problem-solving skills and build reliable, scalable soft
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+
+/* ==========================
+   Theme-matched page scrollbar
+   ========================== */
+
+/* Hide browser scrollbar without disabling page scrolling */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Fixed scrollbar that does not affect page layout */
+.theme-scrollbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 14px;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 99999;
+  background: transparent;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Gradient thumb using the existing theme variables */
+.theme-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 3px;
+  width: 8px;
+  min-height: 38px;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    180deg,
+    var(--brand),
+    var(--brand2),
+    var(--accent)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  box-shadow:
+    0 0 8px rgba(96, 165, 250, 0.35),
+    0 0 14px rgba(167, 139, 250, 0.2);
+
+  cursor: grab;
+  will-change: transform;
+  transition:
+    width 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.theme-scrollbar-thumb:hover {
+  width: 10px;
+  left: 2px;
+
+  box-shadow:
+    0 0 12px var(--brand),
+    0 0 18px var(--brand2);
+}
+
+.theme-scrollbar-thumb:active {
+  cursor: grabbing;
+}
+
+/* Mobile: slightly wider and easier to drag */
+@media (max-width: 860px) {
+  .theme-scrollbar {
+    width: 18px;
+  }
+
+  .theme-scrollbar-thumb {
+    left: 4px;
+    width: 10px;
+    min-height: 44px;
+  }
+
+  .theme-scrollbar-thumb:hover {
+    left: 3px;
+    width: 12px;
+  }
+}
+
+/* Avoid unnecessary animation for motion-sensitive users */
+@media (prefers-reduced-motion: reduce) {
+  .theme-scrollbar-thumb {
+    transition: none;
+  }
+}
+
 
 
       `}</style>

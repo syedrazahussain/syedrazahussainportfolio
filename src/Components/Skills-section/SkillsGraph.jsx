@@ -681,7 +681,6 @@ function SkillsGraph({ data = [] }) {
 
             <div className="sg-footer">
                 <span>
-                    <i className="sg-dot" />
 
                     {selected
                         ? `${selected.category.name} · ${children.length} skills`

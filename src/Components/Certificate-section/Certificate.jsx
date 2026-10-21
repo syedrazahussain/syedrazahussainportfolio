@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useInView, motion } from "framer-motion";
 import HTMLFlipBook from "react-pageflip";
@@ -79,7 +80,37 @@ function CertificateBook({ items = certs }) {
   const [isPaused, setIsPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [pageWidth, setPageWidth] = useState(180);
+
   const [mobileIndex, setMobileIndex] = useState(0);
+
+  const mobilePairs = [
+    ["MERN Stack Advanced", "Python Programming"],
+    ["SQL", "Introduction To Generative AI"],
+    ["Postman API Fundamentals", "Full Stack Development"],
+    ["Databases for Developers", "MERN Stack Fundamentals"],
+    ["Node JS", "Typing Speed"],
+  ];
+
+  const getMobilePair = (pairIndex) => {
+    const pair = mobilePairs[pairIndex % mobilePairs.length];
+
+    const topIndex = items.findIndex(
+      (item) => item.title === pair[0]
+    );
+
+    const bottomIndex = items.findIndex(
+      (item) => item.title === pair[1]
+    );
+
+    return {
+      top: topIndex,
+      bottom: bottomIndex,
+    };
+  };
+
+  const { top: topMobilePageIndex, bottom: bottomMobilePageIndex } =
+    getMobilePair(mobileIndex);
+
   const [mobileDirection, setMobileDirection] = useState(1);
   const [pendingMobileIndex, setPendingMobileIndex] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
@@ -104,7 +135,7 @@ function CertificateBook({ items = certs }) {
     return () => window.removeEventListener("resize", updateLayout);
   }, []);
 
-  // Desktop: preserve the existing horizontal flipbook auto-flip.
+  // Desktop: continuously flip and restart at the beginning.
   useEffect(() => {
     if (isMobile || !isInView || isPaused || items.length < 2) {
       return undefined;
@@ -117,7 +148,7 @@ function CertificateBook({ items = certs }) {
       const currentPage = book.getCurrentPageIndex();
       const pageCount = book.getPageCount();
 
-      if (currentPage >= pageCount - 1) {
+      if (currentPage >= pageCount - 2) {
         book.flip(0);
       } else {
         book.flipNext();
@@ -127,52 +158,13 @@ function CertificateBook({ items = certs }) {
     return () => clearInterval(interval);
   }, [isMobile, isInView, isPaused, items.length]);
 
-
-
-  const handleTouchStart = (event) => {
-    if (!isMobile) return;
-
-    touchStartY.current = event.touches[0].clientY;
-    touchStartX.current = event.touches[0].clientX;
-    setIsPaused(true);
-  };
-
-  const handleTouchEnd = (event) => {
-    if (!isMobile || touchStartY.current === null) {
-      setIsPaused(false);
-      return;
-    }
-
-    const deltaY = touchStartY.current - event.changedTouches[0].clientY;
-    const deltaX = touchStartX.current - event.changedTouches[0].clientX;
-    const threshold = 40;
-
-    // Swipe up: next certificate.
-    // Swipe down: previous certificate.
-    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > threshold) {
-      if (deltaY > 0) {
-        startMobileTurn(1);
-      } else {
-        startMobileTurn(-1);
-      }
-    }
-
-    touchStartY.current = null;
-    touchStartX.current = null;
-    setIsPaused(false);
-  };
-
-  const handlePointerDown = () => setIsPaused(true);
-  const handlePointerUp = () => setIsPaused(false);
-
-
-
   const startMobileTurn = useCallback(
     (direction) => {
       if (isFlipping || items.length < 2) return;
 
       const nextIndex =
-        (mobileIndex + direction + items.length) % items.length;
+        (mobileIndex + direction + mobilePairs.length) %
+        mobilePairs.length;
 
       setMobileDirection(direction);
       setPendingMobileIndex(nextIndex);
@@ -186,7 +178,7 @@ function CertificateBook({ items = certs }) {
     setIsFlipping(false);
   }, [pendingMobileIndex]);
 
-  // Mobile: automatically advance to the next certificate vertically.
+  // Mobile: automatically turn pages vertically.
   useEffect(() => {
     if (
       !isMobile ||
@@ -214,7 +206,6 @@ function CertificateBook({ items = certs }) {
 
   useEffect(() => {
     const updateMobilePageStep = () => {
-      // 390px page + 12px gap on very small phones
       setMobilePageStep(window.innerWidth <= 360 ? 402 : 442);
     };
 
@@ -226,6 +217,39 @@ function CertificateBook({ items = certs }) {
     };
   }, []);
 
+  const handleTouchStart = (event) => {
+    if (!isMobile) return;
+
+    touchStartY.current = event.touches[0].clientY;
+    touchStartX.current = event.touches[0].clientX;
+    setIsPaused(true);
+  };
+
+  const handleTouchEnd = (event) => {
+    if (!isMobile || touchStartY.current === null) {
+      setIsPaused(false);
+      return;
+    }
+
+    const deltaY =
+      touchStartY.current - event.changedTouches[0].clientY;
+    const deltaX =
+      touchStartX.current - event.changedTouches[0].clientX;
+
+    if (
+      Math.abs(deltaY) > Math.abs(deltaX) &&
+      Math.abs(deltaY) > 40
+    ) {
+      startMobileTurn(deltaY > 0 ? 1 : -1);
+    }
+
+    touchStartY.current = null;
+    touchStartX.current = null;
+    setIsPaused(false);
+  };
+
+  const handlePointerDown = () => setIsPaused(true);
+  const handlePointerUp = () => setIsPaused(false);
 
   const renderCertificate = (cert, index) => (
     <div className="page" key={`${cert.title}-${index}`}>
@@ -242,9 +266,11 @@ function CertificateBook({ items = certs }) {
 
         <div className="cert-details">
           <h4>{cert.title}</h4>
+
           {cert.subtitle && (
             <p className="cert-subtitle">{cert.subtitle}</p>
           )}
+
           <p className="cert-description">{cert.desc}</p>
         </div>
       </div>
@@ -254,7 +280,9 @@ function CertificateBook({ items = certs }) {
   return (
     <div
       ref={containerRef}
-      className={`certificate-book-container ${isMobile ? "mobile-certificate-view" : "desktop-certificate-view"
+      className={`certificate-book-container ${isMobile
+        ? "mobile-certificate-view"
+        : "desktop-certificate-view"
         }`}
       onPointerDown={!isMobile ? handlePointerDown : undefined}
       onPointerUp={!isMobile ? handlePointerUp : undefined}
@@ -265,29 +293,33 @@ function CertificateBook({ items = certs }) {
     >
       {isMobile ? (
         <div className="mobile-certificate-card">
-          <div className="mobile-book-window" onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}>
-            {/* Normal pages underneath the turning page */}
+          <div className="mobile-book-window">
+            {/* Stationary pages underneath the turning sheet */}
+            {/* Two different pages visible at all times */}
             <div className="mobile-book-pages">
-              {items.length > 0 &&
-                renderCertificate(items[mobileIndex], mobileIndex)}
-
-              {items.length > 1 &&
+              {topMobilePageIndex !== -1 &&
                 renderCertificate(
-                  items[(mobileIndex + 1) % items.length],
-                  (mobileIndex + 1) % items.length
+                  items[topMobilePageIndex],
+                  topMobilePageIndex
+                )}
+
+              {bottomMobilePageIndex !== -1 &&
+                renderCertificate(
+                  items[bottomMobilePageIndex],
+                  bottomMobilePageIndex
                 )}
             </div>
-
-            {/* Only this page rotates and moves upward */}
+            {/* 3D turning page */}
             {isFlipping && items.length > 1 && (
               <motion.div
-                key={`turn-${mobileIndex}-${mobileDirection}`}
+                key={`turn-${mobileIndex}-${pendingMobileIndex}`}
                 className="mobile-turn-overlay"
                 style={{
                   top: mobileDirection > 0 ? mobilePageStep : 0,
                   transformOrigin:
-                    mobileDirection > 0 ? "top center" : "bottom center",
+                    mobileDirection > 0
+                      ? "top center"
+                      : "bottom center",
                 }}
                 initial={{
                   y: 0,
@@ -298,10 +330,11 @@ function CertificateBook({ items = certs }) {
                     mobileDirection > 0
                       ? -mobilePageStep
                       : mobilePageStep,
-                  rotateX: mobileDirection > 0 ? -180 : 180,
+                  rotateX:
+                    mobileDirection > 0 ? -180 : 180,
                 }}
                 transition={{
-                  duration: 0.9,
+                  duration: 1,
                   ease: [0.45, 0, 0.2, 1],
                 }}
                 onAnimationComplete={finishMobileTurn}
@@ -310,15 +343,17 @@ function CertificateBook({ items = certs }) {
                 <div className="mobile-turn-face mobile-turn-front">
                   {renderCertificate(
                     items[
-                    mobileDirection > 0
+                    mobileDirection === 1
                       ? (mobileIndex + 1) % items.length
-                      : pendingMobileIndex
+                      : mobileIndex
                     ],
-                    pendingMobileIndex
+                    mobileDirection === 1
+                      ? (mobileIndex + 1) % items.length
+                      : mobileIndex
                   )}
                 </div>
 
-                {/* Backside of the physical page */}
+                {/* Back of the physical page */}
                 <div className="mobile-turn-face mobile-turn-back">
                   <div className="mobile-turn-back-paper" />
                 </div>
@@ -355,7 +390,6 @@ function CertificateBook({ items = certs }) {
           </p>
         </div>
       ) : (
-        // Keep your existing HTMLFlipBook JSX here, unchanged.
         <HTMLFlipBook
           ref={bookRef}
           width={pageWidth}
