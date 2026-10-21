@@ -16,19 +16,7 @@ export const experience = [
       "Resolved critical deployment bugs and improved platform reliability.",
     ],
   },
-  {
-    role: "Full Stack Developer",
-    company: "Scuts Technologies Pvt. Ltd.",
-    location: "Bangalore, India",
-    period: "Sep 2024 – Mar 2025",
-    bullets: [
-      "Developed scalable RESTful APIs, improving data transaction speed by 30%.",
-      "Enhanced responsive UI and accessibility, boosting user engagement by 25%.",
-      "Optimized PostgreSQL queries, reducing page load time by 40%.",
-      "Collaborated with cross-functional teams to deliver 5+ major features.",
-      "Resolved critical deployment bugs and improved platform reliability.",
-    ],
-  },
+ 
 ];
 
 export default function Experience({
