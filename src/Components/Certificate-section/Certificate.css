@@ -1,5 +1,8 @@
+/* =========================
+   SHARED + DESKTOP STYLES
+   Preserved from your code
+========================= */
 
-/* Main wrapper */
 .certificate-book-container {
   display: flex;
   justify-content: center;
@@ -12,13 +15,11 @@
   overflow: hidden;
 }
 
-/* Do not force height:auto on the flipbook */
 .demo-book {
   margin: 0 auto;
   flex-shrink: 0;
 }
 
-/* Individual page */
 .demo-book .page {
   box-sizing: border-box;
   width: 100%;
@@ -26,39 +27,32 @@
   min-width: 0;
   min-height: 0;
   padding: 12px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-
   overflow: hidden;
   text-align: center;
   color: var(--text, #f3f4f6);
-
   background: linear-gradient(
     180deg,
     #1f2937 0%,
     #111827 55%,
     #030712 100%
   );
-
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-
   box-shadow:
     inset 0 0 16px rgba(0, 0, 0, 0.2),
     0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
-/* Content stays inside the page */
 .demo-book .page-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-
   width: 100%;
   height: 100%;
   min-width: 0;
@@ -67,12 +61,10 @@
   box-sizing: border-box;
 }
 
-/* Image wrapper takes only the space it needs */
 .demo-book .cert-image-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-
   flex: 0 1 auto;
   width: 100%;
   min-width: 0;
@@ -81,26 +73,21 @@
   overflow: hidden;
 }
 
-/* Certificate image */
 .demo-book .certImg {
   display: block;
-
   width: 100%;
   height: auto;
   max-width: 100%;
   max-height: 100%;
   min-width: 0;
   min-height: 0;
-
   object-fit: contain;
   object-position: center;
-
   border-radius: 7px;
   background: rgba(255, 255, 255, 0.04);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Certificate title and description */
 .demo-book .cert-details {
   flex: 0 1 auto;
   width: 100%;
@@ -108,7 +95,6 @@
   min-height: 0;
   overflow: hidden;
   overflow-wrap: anywhere;
-  word-break: normal;
 }
 
 .demo-book .page h4 {
@@ -136,271 +122,24 @@
   color: #e5e7eb;
 }
 
-/* Mobile layout */
-@media (max-width: 639px) {
-  .certificate-book-container {
-    padding: 8px 0;
-  }
-
-  .demo-book .page {
-    padding: 10px;
-    border-radius: 10px;
-  }
-
-  .demo-book .page-content {
-    gap: 7px;
-  }
-
-  .demo-book .cert-image-wrapper {
-    max-height: 45%;
-  }
-
-  .demo-book .page h4 {
-    font-size: 15px;
-    line-height: 1.25;
-    margin-bottom: 4px;
-  }
-
-  .demo-book .page p {
-    font-size: 12px;
-    line-height: 1.35;
-    margin: 3px 0;
-  }
-}
-
-/* Very small screens */
-@media (max-width: 360px) {
-  .demo-book .page {
-    padding: 7px;
-  }
-
-  .demo-book .page-content {
-    gap: 5px;
-  }
-
-  .demo-book .page h4 {
-    font-size: 13px;
-  }
-
-  .demo-book .page p {
-    font-size: 11px;
-    line-height: 1.3;
-  }
-}
-
-
-/* Keep the book centered and prevent horizontal overflow */
-.certificate-book-container {
+.mobile-certificate-view {
+  display: block;
   width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  padding: 10px 0;
-  box-sizing: border-box;
-}
-
-.demo-book {
-  margin: 0 auto;
-  flex-shrink: 0;
-}
-
-/* Keep content compact inside each page */
-.demo-book .page {
-  box-sizing: border-box;
-  padding: 10px;
-  overflow: hidden;
-}
-
-.demo-book .page-content {
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  overflow: hidden;
-}
-
-.demo-book .cert-image-wrapper {
-  width: 100%;
-  height: 48%;
-  flex-shrink: 1;
-  min-height: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.demo-book .certImg {
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.demo-book .cert-details {
-  width: 100%;
-  min-height: 0;
-  overflow: hidden;
-  text-align: center;
-  overflow-wrap: anywhere;
-}
-
-.demo-book .page h4 {
-  font-size: 15px;
-  line-height: 1.25;
-  margin: 2px 0 4px;
-}
-
-.demo-book .page p {
-  font-size: 11px;
-  line-height: 1.3;
-  margin: 3px 0;
-}
-
-/* Mobile: two-page landscape book, scaled down */
-@media (max-width: 639px) {
-  .certificate-book-container {
-    padding: 8px 0;
-  }
-
-  .demo-book .page {
-    padding: 7px;
-  }
-
-  .demo-book .page-content {
-    gap: 5px;
-  }
-
-  .demo-book .cert-image-wrapper {
-    height: 42%;
-  }
-
-  .demo-book .page h4 {
-    font-size: 12px;
-    line-height: 1.2;
-  }
-
-  .demo-book .page p {
-    font-size: 10px;
-    line-height: 1.25;
-  }
-}
-
-/* Very narrow phones */
-@media (max-width: 360px) {
-  .demo-book .page {
-    padding: 5px;
-  }
-
-  .demo-book .page h4 {
-    font-size: 11px;
-  }
-
-  .demo-book .page p {
-    font-size: 9px;
-  }
-}
-
-.certificate-book-container {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  padding: 8px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.demo-book {
-  flex-shrink: 0;
-  margin: 0 auto;
-}
-
-.demo-book .page {
-  box-sizing: border-box;
-  min-width: 0;
-  overflow: hidden;
-  padding: 6px;
-}
-
-.demo-book .page-content,
-.demo-book .cert-details {
-  width: 100%;
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
-  overflow-wrap: anywhere;
-}
-
-.demo-book .cert-image-wrapper {
-  width: 100%;
-  max-width: 100%;
-  height: 42%;
-  min-height: 0;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.demo-book .certImg {
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-}
-
-@media (max-width: 480px) {
-  .demo-book .page h4 {
-    font-size: 11px;
-    line-height: 1.2;
-  }
-
-  .demo-book .page p {
-    font-size: 9px;
-    line-height: 1.25;
-    overflow-wrap: anywhere;
-  }
 }
 
 @media (min-width: 640px) {
-  .certificate-book-container {
-    padding: 20px 0;
-  }
-
-  .demo-book .page {
-    padding: 14px;
-  }
-
-  .demo-book .page-content {
-    gap: 10px;
-  }
-
-  .demo-book .page h4 {
-    font-size: 18px;
-  }
-
-  .demo-book .page p {
-    font-size: 14px;
-    line-height: 1.45;
-  }
-
-  .demo-book .cert-image-wrapper {
-    height: 48%;
+  .mobile-certificate-view {
+    display: none;
   }
 }
 
+@media (max-width: 639px) {
+  .desktop-certificate-view {
+    display: none;
+  }
+}
 
-/* Laptop and desktop: enlarge certificate content */
+/* Preserve existing laptop/desktop sizing. */
 @media (min-width: 640px) {
   .demo-book .page {
     padding: 8px !important;
@@ -412,7 +151,6 @@
     padding: 0;
   }
 
-  /* Give more space to the certificate image */
   .demo-book .cert-image-wrapper {
     width: 100%;
     height: 58%;
@@ -429,7 +167,6 @@
     object-fit: contain;
   }
 
-  /* Make text larger and easier to read */
   .demo-book .cert-details {
     flex: 1 1 auto;
     width: 100%;
@@ -450,669 +187,260 @@
   }
 }
 
-/* Mobile only: vertical single-page flipbook */
-@media (max-width: 639px) {
-  .certificate-book-container {
-    width: 100%;
-    overflow: hidden;
-    padding: 8px 0;
-  }
-
-  .demo-book .page {
-    padding: 8px;
-  }
-
-  .demo-book .page-content {
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .demo-book .cert-image-wrapper {
-    width: 100%;
-    height: 48%;
-    max-height: 48%;
-    flex: 0 0 48%;
-  }
-
-  .demo-book .certImg {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .demo-book .page h4 {
-    font-size: 14px;
-    line-height: 1.25;
-  }
-
-  .demo-book .page p {
-    font-size: 11px;
-    line-height: 1.3;
-  }
-}
+/* =========================
+   MOBILE ONLY
+   Rotated flipbook layout
+========================= */
 
 @media (max-width: 639px) {
-  .certificate-book-container {
-    overflow: hidden;
-    padding: 8px 0;
-  }
-
-  .demo-book .page {
-    padding: 8px;
-  }
-
-  .demo-book .page-content {
-    justify-content: flex-start;
-    gap: 8px;
-  }
-
-  .demo-book .cert-image-wrapper {
-    width: 100%;
-    height: 52%;
-    max-height: 52%;
-    flex: 0 0 52%;
-  }
-
-  .demo-book .certImg {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-}
-
-
-/* Mobile-only vertical certificate browsing.
-   Desktop/laptop styles remain unchanged. */
-@media (max-width: 639px) {
-  .mobile-certificate-view {
+  .certificate-book-container.mobile-certificate-view {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
-    padding: 8px 0;
-    overflow: hidden;
-    box-sizing: border-box;
+    padding: 14px 0;
+    overflow: visible;
   }
 
   .mobile-certificate-card {
-    width: min(100% - 32px, 380px);
-    box-sizing: border-box;
-    touch-action: pan-y;
-  }
-
-  .mobile-certificate-card .page {
     width: 100%;
-    height: 430px;
+    max-width: 440px;
+    min-width: 0;
+    margin-inline: auto;
+    overflow: visible;
     box-sizing: border-box;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    background: linear-gradient(
-      180deg,
-      #1f2937 0%,
-      #111827 55%,
-      #030712 100%
-    );
-    color: #f3f4f6;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   }
 
-  .mobile-certificate-card .page-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+  .mobile-rotated-stage {
+    position: relative;
+    flex-shrink: 0;
+    margin-inline: auto;
+    overflow: hidden;
+    isolation: isolate;
+    perspective: 1400px;
+    perspective-origin: center center;
+    border-radius: 16px;
+
+    /*
+      Gestures are handled by React.
+      Prevent the browser from interpreting an in-book
+      vertical swipe as page scrolling.
+    */
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-rotated-book-rotator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  .mobile-rotated-book {
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .mobile-rotated-book .page {
+    position: relative;
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
+    min-width: 0;
     min-height: 0;
+    padding: 8px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    color: var(--text, #f3f4f6);
+    text-align: center;
+    background: linear-gradient(
+      145deg,
+      #1f2937,
+      #111827 65%,
+      #030712
+    );
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.18);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
-  .mobile-certificate-card .cert-image-wrapper {
+  /*
+    Counter-rotate certificate content to keep it upright.
+    The dimensions are supplied by the React component.
+  */
+  .mobile-rotated-book .page-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--rotated-content-width, 360px);
+    height: var(--rotated-content-height, 280px);
+    transform: translate(-50%, -50%) rotate(-90deg);
+    transform-origin: center center;
+
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .mobile-rotated-book .cert-image-wrapper {
+    display: flex;
+    flex: 1 1 68%;
     align-items: center;
     justify-content: center;
+
     width: 100%;
-    height: 55%;
-    flex: 0 0 55%;
+    min-width: 0;
     min-height: 0;
+    max-height: 70%;
     overflow: hidden;
   }
 
-  .mobile-certificate-card .certImg {
+  .mobile-rotated-book .certImg {
     display: block;
     width: 100%;
     height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 0;
+    min-height: 0;
     object-fit: contain;
+    object-position: center;
+    border-radius: 5px;
+    background: transparent;
+    box-shadow: none;
+    -webkit-user-drag: none;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
-  .mobile-certificate-card .cert-details {
+  .mobile-rotated-book .cert-details {
+    flex: 0 0 auto;
     width: 100%;
+    min-width: 0;
     min-height: 0;
+    padding: 0 2px 2px;
+    overflow: hidden;
     text-align: center;
     overflow-wrap: anywhere;
-    overflow: hidden;
   }
 
-  .mobile-certificate-card .page h4 {
-    margin: 2px 0 6px;
-    font-size: 16px;
-    line-height: 1.3;
+  .mobile-rotated-book .page h4 {
+    margin: 0 0 5px;
     color: var(--brand, #60a5fa);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
   }
 
-  .mobile-certificate-card .page p {
-    margin: 4px 0;
+  .mobile-rotated-book .page p {
+    margin: 4px 0 0;
     font-size: 12px;
-    line-height: 1.4;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
   }
 
+  .mobile-rotated-book .cert-subtitle {
+    color: #cbd5e1;
+    font-weight: 600;
+  }
+
+  .mobile-rotated-book .cert-description {
+    color: #e5e7eb;
+    opacity: 0.9;
+  }
+
+  /* Controls stay outside the clipped flipbook stage. */
   .mobile-certificate-controls {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    margin-top: 12px;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    max-width: 440px;
+    margin: 14px auto 0;
+    padding: 0 4px;
+    box-sizing: border-box;
   }
 
   .mobile-certificate-controls button {
-    padding: 8px 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 9px 12px;
+    color: var(--text, #f3f4f6);
+    background: rgba(255, 255, 255, 0.07);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    background: #1f2937;
-    color: #f3f4f6;
+    border-radius: 10px;
     font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .mobile-certificate-controls button:disabled {
+    opacity: 0.55;
+    cursor: wait;
   }
 
   .mobile-certificate-controls span {
     color: var(--text, #f3f4f6);
     font-size: 12px;
+    white-space: nowrap;
   }
 
   .mobile-swipe-hint {
-    margin: 8px 0 0;
+    margin: 9px 0 0;
+    color: var(--text, #cbd5e1);
+    opacity: 0.75;
     text-align: center;
-    color: #9ca3af;
     font-size: 11px;
+    line-height: 1.4;
   }
 }
 
 @media (max-width: 360px) {
-  .mobile-certificate-card .page {
-    height: 390px;
-    padding: 8px;
+  .mobile-rotated-book .page {
+    padding: 6px;
   }
 
-  .mobile-certificate-card .page h4 {
+  .mobile-rotated-book .page-content {
+    gap: 6px;
+  }
+
+  .mobile-rotated-book .page h4 {
     font-size: 14px;
   }
 
-  .mobile-certificate-card .page p {
+  .mobile-rotated-book .page p {
     font-size: 11px;
   }
-}
 
-@media (max-width: 639px) {
-  .mobile-certificate-card {
-    perspective: 1000px;
+  .mobile-certificate-controls {
+    gap: 6px;
   }
 
-  .mobile-page-turn {
-    width: 100%;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-  }
-
-  .mobile-page-turn .page {
-    width: 100%;
-  }
-}
-
-@media (max-width: 639px) {
-  .mobile-certificate-card {
-    perspective: 1000px;
-  }
-
-  .mobile-page-turn {
-    width: 100%;
-    transform-style: preserve-3d;
-    transform-origin: center center;
-  }
-
-  .mobile-book-pages {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-  }
-
-  .mobile-book-pages .page {
-    width: 100%;
-    min-width: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-
-  .mobile-book-pages .page-content {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .mobile-book-pages .page img {
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
-}
-
-/* Real book-like vertical page movement: mobile only */
-@media (max-width: 639px) {
-  .mobile-certificate-card {
-    perspective: 1400px;
-    overflow: visible;
-  }
-
-  /* Window shows exactly two stacked pages */
-  .mobile-book-window {
-    position: relative;
-    width: 100%;
-    height: calc(430px * 2 + 12px);
-    overflow: hidden;
-    border-radius: 12px;
-    isolation: isolate;
-  }
-
-  .mobile-page-turn {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    will-change: transform, opacity;
-  }
-
-  .mobile-book-pages {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    height: 100%;
-  }
-
-  .mobile-book-pages .page {
-    flex: 0 0 430px;
-    width: 100%;
-    height: 430px;
-    min-height: 0;
-    margin: 0;
-    box-sizing: border-box;
-    backface-visibility: hidden;
-  }
-
-  .mobile-book-pages .page-content {
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    box-sizing: border-box;
-  }
-
-  .mobile-book-pages .cert-image-wrapper {
-    min-height: 0;
-  }
-
-  .mobile-book-pages .certImg {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-}
-
-/* Shorter pages on very small phones */
-@media (max-width: 360px) {
-  .mobile-book-window {
-    height: calc(390px * 2 + 12px);
-  }
-
-  .mobile-book-pages .page {
-    flex-basis: 390px;
-    height: 390px;
-  }
-}
-
-@media (max-width: 639px) {
-  .mobile-book-window {
-    perspective: 1600px;
-    perspective-origin: center center;
-    overflow: hidden;
-  }
-
-  .mobile-page-turn {
-    transform-style: preserve-3d;
-    transform-origin: center center;
-    backface-visibility: hidden;
-    will-change: transform;
-  }
-
-  .mobile-book-pages .page {
-    position: relative;
-    overflow: hidden;
-    backface-visibility: hidden;
-    box-shadow:
-      inset 0 0 12px rgba(255, 255, 255, 0.035),
-      0 5px 14px rgba(0, 0, 0, 0.22);
-  }
-
-  .mobile-book-pages .page::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.08),
-      transparent 35%,
-      rgba(0, 0, 0, 0.16)
-    );
-  }
-}
-
-
-/* Mobile vertical 3D page-turn animation only */
-@media (max-width: 639px) {
-  .mobile-certificate-card {
-    perspective: 1600px;
-    perspective-origin: center center;
-  }
-
-  .mobile-book-window {
-    position: relative;
-    width: 100%;
-    height: calc(430px * 2 + 12px);
-    overflow: hidden;
-    isolation: isolate;
-    border-radius: 12px;
-    perspective: 1600px;
-  }
-
-  /* Stationary top and bottom certificates */
-  .mobile-book-pages {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    height: 100%;
-  }
-
-  .mobile-book-pages > .page {
-    flex: 0 0 430px;
-    width: 100%;
-    height: 430px;
-    min-height: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-
-  /* Only the selected page turns */
-  .mobile-turn-overlay {
-    position: absolute;
-    left: 0;
-    z-index: 5;
-    width: 100%;
-    height: 430px;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    will-change: transform;
-    pointer-events: none;
-    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.3));
-  }
-
-  .mobile-turn-face {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    overflow: hidden;
-    border-radius: 12px;
-  }
-
-  .mobile-turn-front {
-    z-index: 2;
-  }
-
-  .mobile-turn-front > .page {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    box-sizing: border-box;
-  }
-
-  /* The reverse side of the turning sheet */
-  .mobile-turn-back {
-    transform: rotateX(180deg);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: linear-gradient(
-      180deg,
-      #374151 0%,
-      #1f2937 55%,
-      #030712 100%
-    );
-    box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.2);
-  }
-
-  .mobile-turn-back-paper {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.1),
-      transparent 35%,
-      rgba(0, 0, 0, 0.18)
-    );
-  }
-
-  .mobile-certificate-controls button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
-@media (max-width: 360px) {
-  .mobile-book-window {
-    height: calc(390px * 2 + 12px);
-  }
-
-  .mobile-book-pages > .page {
-    flex-basis: 390px;
-    height: 390px;
-  }
-
-  .mobile-turn-overlay {
-    height: 390px;
-  }
-}
-
-/* Prevent mobile swipe gestures from triggering browser scroll */
-@media (max-width: 639px) {
-  .mobile-book-window {
-    touch-action: none;
-    overscroll-behavior: contain;
-    overflow-anchor: none;
-  }
-
-  .mobile-book-pages,
-  .mobile-turn-overlay {
-    overflow-anchor: none;
-  }
-}
-
-
-/* Mobile 3D book-turn effect overrides */
-@media (max-width: 639px) {
-  .mobile-certificate-card {
-    perspective: 1600px;
-    perspective-origin: center center;
-  }
-
-  .mobile-book-window {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    transform-style: preserve-3d;
-    perspective: 1600px;
-  }
-
-  .mobile-book-pages {
-    position: relative;
-    z-index: 1;
-  }
-
-  .mobile-turn-overlay {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    will-change: transform;
-    pointer-events: none;
-  }
-
-  .mobile-turn-face {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    border-radius: 12px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-
-  .mobile-turn-front {
-    z-index: 2;
-    transform: rotateX(0deg);
-  }
-
-  .mobile-turn-front > .page {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-  }
-
-  .mobile-turn-back {
-    transform: rotateX(180deg);
-    background: linear-gradient(
-      180deg,
-      #374151 0%,
-      #1f2937 55%,
-      #030712 100%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.25);
-  }
-
-  .mobile-turn-back-paper {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.12),
-      transparent 35%,
-      rgba(0, 0, 0, 0.2)
-    );
-  }
-
-  .mobile-turn-overlay .page {
-    box-shadow:
-      inset 0 0 12px rgba(255, 255, 255, 0.04),
-      0 8px 20px rgba(0, 0, 0, 0.28);
-  }
-
-  .mobile-certificate-controls button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
-@media (max-width: 639px) {
-  .mobile-book-window {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .mobile-book-pages {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 1;
-  }
-
-  .mobile-book-pages > .page {
-    position: relative;
-    flex: 0 0 430px;
-    width: 100%;
-    height: 430px;
-    margin: 0;
-  }
-
-  .mobile-turn-overlay {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 430px;
-    z-index: 5;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-  }
-
-  .mobile-turn-front > .page {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-  }
-}
-
-@media (max-width: 360px) {
-  .mobile-book-pages > .page {
-    flex-basis: 390px;
-    height: 390px;
-  }
-
-  .mobile-turn-overlay {
-    height: 390px;
-  }
-}
-
-@media (max-width: 639px) {
-  .mobile-static-page {
-    width: 100%;
-    height: 430px;
-    flex: 0 0 430px;
-    overflow: hidden;
-  }
-
-  .mobile-static-page > .page {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-  }
-
-  .mobile-book-pages {
-    gap: 12px;
-  }
-}
-
-@media (max-width: 360px) {
-  .mobile-static-page {
-    height: 390px;
-    flex-basis: 390px;
+  .mobile-certificate-controls button {
+    padding: 8px;
+    font-size: 11px;
   }
 }

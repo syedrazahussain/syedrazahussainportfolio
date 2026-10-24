@@ -522,7 +522,7 @@ and RAG. Eager to apply problem-solving skills and build reliable, scalable soft
 
 
     {/* HERO SECTION */}
-<Hero contact={contact} objective={objective} />
+<Hero id="about" contact={contact} objective={objective} />
 
 
       <main>

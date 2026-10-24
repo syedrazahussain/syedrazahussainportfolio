@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { motion, useInView } from "framer-motion";
 import { CustomScrollbar } from "../screens/Homescreen";
+import Internshala_Header from "../Components/Header-section/Internshala_Header/Internshala_Header";
+
 
 function ParticleBackground() {
   const canvasRef = useRef(null);
@@ -233,7 +235,7 @@ function Internshala() {
     <div className="internshalaPage">
       <ParticleBackground />
       <CustomScrollbar />
-      <Nav />
+      <Internshala_Header/>
 
       <main>
         <Section

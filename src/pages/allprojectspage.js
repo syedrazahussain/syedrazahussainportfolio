@@ -3,13 +3,13 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
-  AnimatePresence,
   useInView,
-  useAnimation,
   useMotionValue,
   useSpring
 } from "framer-motion";
 import { CustomScrollbar } from "../screens/Homescreen";
+import All_projects_header from "../Components/Header-section/All_projects_header/All_projects_header";
+
 
 
 function ParticleBackground() {
@@ -474,7 +474,7 @@ const allprojectspage = () => {
     <div>
       <ParticleBackground />
       <CustomScrollbar />
-      <Nav />
+      <All_projects_header/>
 
       <main>
 
