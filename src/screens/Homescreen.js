@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo, } from "react";
+import React, { useEffect, useRef, useMemo, useState, } from "react";
 import { motion,  useInView, } from "framer-motion";
 
 import "../Components/Skills-section/SkillsGraph.css";
@@ -28,11 +28,6 @@ import Header from "../Components/Header-section/Header";
 
 import Hero from "../Components/Hero-section/Hero";
 import "../Components/Hero-section/Hero.css";
-
-
-
-
-
 
 
 // ==========================
@@ -168,12 +163,6 @@ const Section = ({ id, title, children }) => (
 
 
 
-
-
-
-// ==========================
-// MAIN EXPORT
-// ==========================
 function SectionTitle({ title, subtitle }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { margin: "-100px" });
@@ -495,7 +484,114 @@ export function CustomScrollbar() {
 }
 
 
+
+// loading screen
+
+
+function PortfolioLoader() {
+  return (
+    <div
+      className="portfolio-loader"
+      role="status"
+      aria-label="Loading portfolio"
+    >
+      <div className="loader-orbit orbit-one" />
+      <div className="loader-orbit orbit-two" />
+      <div className="loader-orbit orbit-three" />
+
+      <div className="loader-core">
+        <div className="loader-core-inner">
+          <span className="loader-initial">SR</span>
+        </div>
+      </div>
+
+      <div className="loader-particle particle-one" />
+      <div className="loader-particle particle-two" />
+      <div className="loader-particle particle-three" />
+      <div className="loader-particle particle-four" />
+
+      <div className="loader-caption">
+        <h2>INITIALIZING PORTFOLIO</h2>
+
+        <div className="loader-progress-track">
+          <div className="loader-progress-bar" />
+        </div>
+
+        <p>Preparing your experience...</p>
+      </div>
+    </div>
+  );
+}
+
+
+// ==========================
+// MAIN EXPORT
+// ==========================
+
 export default function Portfolio() {
+
+  // loading--Logic
+const [isLoaded, setIsLoaded] = useState(false);
+
+useEffect(() => {
+  let cancelled = false;
+  let finishTimer;
+
+  const wait = (ms) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const waitForImages = async () => {
+    const images = Array.from(document.images);
+
+    await Promise.race([
+      Promise.all(
+        images.map(async (img) => {
+          if (!img.complete) {
+            await new Promise((resolve) => {
+              img.addEventListener("load", resolve, {
+                once: true,
+              });
+              img.addEventListener("error", resolve, {
+                once: true,
+              });
+            });
+          }
+
+          if (img.complete && img.naturalWidth > 0) {
+            try {
+              await img.decode();
+            } catch {
+              // Continue if an image cannot be decoded.
+            }
+          }
+        })
+      ),
+      wait(8000),
+    ]);
+  };
+
+  const initializePortfolio = async () => {
+    await Promise.all([
+      document.fonts?.ready ?? Promise.resolve(),
+      waitForImages(),
+    ]);
+
+    // Allow initial layout and animations to settle.
+    await wait(1400);
+
+    if (!cancelled) {
+      setIsLoaded(true);
+    }
+  };
+
+  initializePortfolio();
+
+  return () => {
+    cancelled = true;
+    clearTimeout(finishTimer);
+  };
+}, []);
+
   // ---------- Data (from your resume) ----------
   const contact = {
     name: "SYED RAZA HUSSAIN",
@@ -515,6 +611,12 @@ and RAG. Eager to apply problem-solving skills and build reliable, scalable soft
   return (
     <div className="wrap">
       <ParticleBackground />
+        <div
+      className={`portfolio-content ${
+        isLoaded ? "is-ready" : ""
+      }`}
+      aria-hidden={!isLoaded}
+    >
       <CustomScrollbar />
 
         <Header />
@@ -576,7 +678,12 @@ and RAG. Eager to apply problem-solving skills and build reliable, scalable soft
 
       {/* Footer */}
       <Footer contact={contact} />
+      </div>
       
+
+        {/* Loader */}
+    {!isLoaded && <PortfolioLoader />}
+
 
       {/* INLINE CSS (no Tailwind) */}
       <style>{`
@@ -777,6 +884,388 @@ body::-webkit-scrollbar {
   }
 }
 
+
+
+
+/* ==========================
+   Modern Portfolio Loader
+   ========================== */
+
+.portfolio-content {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.65s ease,
+    visibility 0s linear 0.65s;
+}
+
+.portfolio-content.is-ready {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 0.65s ease,
+    visibility 0s;
+}
+
+/* Full-screen loader */
+
+.portfolio-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(96, 165, 250, 0.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 50% 55%,
+      rgba(167, 139, 250, 0.09),
+      transparent 42%
+    ),
+    #0b1020;
+
+  color: var(--text);
+}
+
+/* Animated energy rings */
+
+.loader-orbit {
+  position: absolute;
+  top: calc(50% - 110px);
+  left: 50%;
+
+  width: 160px;
+  height: 160px;
+
+  border: 1px solid transparent;
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.orbit-one {
+  border-top-color: var(--brand);
+  border-right-color: rgba(96, 165, 250, 0.25);
+  box-shadow: 0 -4px 18px rgba(96, 165, 250, 0.13);
+
+  animation: loader-spin 2s linear infinite;
+}
+
+.orbit-two {
+  width: 190px;
+  height: 190px;
+  margin-top: -15px;
+  margin-left: -15px;
+
+  border-bottom-color: var(--brand2);
+  border-left-color: rgba(167, 139, 250, 0.3);
+
+  animation: loader-spin-reverse 3s linear infinite;
+}
+
+.orbit-three {
+  width: 220px;
+  height: 220px;
+  margin-top: -30px;
+  margin-left: -30px;
+
+  border-top-color: rgba(52, 211, 153, 0.8);
+  border-bottom-color: rgba(52, 211, 153, 0.12);
+
+  animation: loader-spin 5s linear infinite;
+}
+
+/* Glowing central core */
+
+.loader-core {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+
+  width: 100px;
+  height: 100px;
+
+  border: 1px solid rgba(96, 165, 250, 0.65);
+  border-radius: 50%;
+
+  background: rgba(15, 23, 42, 0.88);
+
+  box-shadow:
+    0 0 18px rgba(96, 165, 250, 0.3),
+    0 0 42px rgba(167, 139, 250, 0.2),
+    inset 0 0 22px rgba(52, 211, 153, 0.1);
+
+  animation: loader-breathe 2.2s ease-in-out infinite;
+}
+
+.loader-core-inner {
+  display: grid;
+  place-items: center;
+
+  width: 76px;
+  height: 76px;
+
+  border: 1px solid rgba(167, 139, 250, 0.45);
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    rgba(96, 165, 250, 0.16),
+    rgba(167, 139, 250, 0.15),
+    rgba(52, 211, 153, 0.12)
+  );
+}
+
+.loader-initial {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 3px;
+
+  background: linear-gradient(
+    120deg,
+    var(--brand),
+    var(--brand2),
+    var(--accent)
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Floating energy particles */
+
+.loader-particle {
+  position: absolute;
+  top: calc(50% - 25px);
+  left: 50%;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+  background: var(--brand);
+
+  box-shadow: 0 0 14px var(--brand);
+
+  pointer-events: none;
+}
+
+.particle-one {
+  animation: loader-particle-one 3s ease-in-out infinite;
+}
+
+.particle-two {
+  background: var(--brand2);
+  box-shadow: 0 0 14px var(--brand2);
+  animation: loader-particle-two 3.5s ease-in-out infinite;
+}
+
+.particle-three {
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent);
+  animation: loader-particle-three 4s ease-in-out infinite;
+}
+
+.particle-four {
+  width: 4px;
+  height: 4px;
+  animation: loader-particle-four 3.2s ease-in-out infinite;
+}
+
+/* Loading caption */
+
+.loader-caption {
+  position: absolute;
+  top: calc(50% + 145px);
+
+  width: min(300px, 82vw);
+  text-align: center;
+}
+
+.loader-caption h2 {
+  margin: 0 0 18px;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+
+  color: var(--text);
+}
+
+.loader-progress-track {
+  width: 100%;
+  height: 3px;
+
+  overflow: hidden;
+  border-radius: 20px;
+
+  background: rgba(148, 163, 184, 0.16);
+}
+
+.loader-progress-bar {
+  width: 38%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+    90deg,
+    var(--brand),
+    var(--brand2),
+    var(--accent)
+  );
+
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.6);
+
+  animation: loader-progress 1.6s ease-in-out infinite;
+}
+
+.loader-caption p {
+  margin: 15px 0 0;
+
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/* Keyframes */
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes loader-breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes loader-progress {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(290%);
+  }
+}
+
+@keyframes loader-particle-one {
+  0%, 100% {
+    transform: translate(-85px, -65px);
+  }
+  50% {
+    transform: translate(85px, 65px);
+  }
+}
+
+@keyframes loader-particle-two {
+  0%, 100% {
+    transform: translate(85px, -60px);
+  }
+  50% {
+    transform: translate(-85px, 60px);
+  }
+}
+
+@keyframes loader-particle-three {
+  0%, 100% {
+    transform: translate(-70px, 70px);
+  }
+  50% {
+    transform: translate(70px, -70px);
+  }
+}
+
+@keyframes loader-particle-four {
+  0%, 100% {
+    transform: translate(0, -95px);
+  }
+  50% {
+    transform: translate(0, 95px);
+  }
+}
+
+/* Mobile adjustments */
+
+@media (max-width: 480px) {
+  .loader-orbit {
+    top: calc(50% - 95px);
+    width: 135px;
+    height: 135px;
+  }
+
+  .orbit-two {
+    width: 165px;
+    height: 165px;
+  }
+
+  .orbit-three {
+    width: 195px;
+    height: 195px;
+  }
+
+  .loader-core {
+    width: 88px;
+    height: 88px;
+  }
+
+  .loader-core-inner {
+    width: 68px;
+    height: 68px;
+  }
+
+  .loader-caption {
+    top: calc(50% + 130px);
+  }
+
+  .loader-caption h2 {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-orbit,
+  .loader-core,
+  .loader-particle,
+  .loader-progress-bar {
+    animation-duration: 8s;
+  }
+
+  .portfolio-content,
+  .portfolio-content.is-ready {
+    transition: none;
+  }
+}
 
 
       `}</style>

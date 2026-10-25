@@ -11,7 +11,7 @@ export const achievements = [
   {
     title: "9.57 CGPA – Academic Excellence",
     desc: "Achieved an outstanding 9.57 CGPA, demonstrating strong academic performance and consistent dedication to learning.",
-    image: "/academic-excellence.png",
+    image: "../academic-excellence.png",
   },
   {
     title: "2nd place – Code Debugging (Utkarsh 2K25)",
