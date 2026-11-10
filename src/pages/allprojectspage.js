@@ -1120,6 +1120,13 @@ const projects = [
     link: "https://vehicall.infinityfree.me"
   },
   {
+    title: "BedMitra",
+    desc: "The platform connects patients, hospitals, and administrators, allowing hospitals to update ICU bed availability and enabling users to search for nearby hospitals based on real-time availability.",
+    tech: ["React JS", "Express", "NodeJS", "Postgresql"],
+    image: '/bedmitra.png',
+    link: "https://bedmitra.vercel.app"
+  },
+  {
     title: "Celebratemate",
     desc: "An event reminder system that sends automated SMS and email notifications for birthdays, anniversaries, and other important events to avoid missing special moments.",
     tech: ["React JS", "Express", "NodeJS", "Postgres"],

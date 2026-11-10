@@ -51,12 +51,20 @@ export const projects = [
     link: "https://vehicall.infinityfree.me",
   },
   {
+    title: "Bedmitra",
+    desc: "The platform connects patients, hospitals, and administrators, allowing hospitals to update ICU bed availability and enabling users to search for nearby hospitals based on real-time availability.",
+    tech: ["React JS", "Express", "NodeJS", "Postgres"],
+    image: "/bedmitra.png",
+    link: "https://bedmitra.vercel.app/",
+  },
+  {
     title: "Celebratemate",
     desc: "An event reminder system that sends automated SMS and email notifications for birthdays, anniversaries, and other important events to avoid missing special moments.",
     tech: ["React JS", "Express", "NodeJS", "Postgres"],
     image: "/celebratemate.png",
     link: "https://celebratemate-client.onrender.com/",
   },
+
   {
     title: "Internshala Automation Tool",
     desc: "Automated internship applications using headless browser scripting, reducing manual effort by 95% and boosting reach by 4x.",
@@ -64,13 +72,7 @@ export const projects = [
     image: "/internshala.png",
     link: "/internshala",
   },
-  {
-    title: "CivicLink",
-    desc: "Multi-role dashboard to report civic issues (water, garbage, roads), improving complaint resolution efficiency by 40%.",
-    tech: ["React.js", "Node.js", "Express.js", "MongoDB"],
-    image: "/civiclink.png",
-    link: "https://civiclink1.netlify.app/",
-  },
+
 ];
 
 function ProjectsScene({ projects = [] }) {
